@@ -1,5 +1,5 @@
-import { Message } from "./models/message";
-import { MessageQueueUtil } from "./utility/messageQueueUtil";
+import { Message } from "./models/message.js";
+import { MessageQueueUtil } from "./utility/messageQueueUtil.js";
 
 export class MessageHandler {
     static handleRequest(command, data) {

@@ -1,5 +1,4 @@
-import { MessageQueueUtil } from "./utility/messageQueueUtil";
-import { GlobalDatabase } from "./database/globalDatabase";
+import { MessageQueueUtil } from "./utility/messageQueueUtil.js";
 
 export class MessageServer {
     static async processMessage() {

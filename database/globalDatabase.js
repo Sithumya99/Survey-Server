@@ -1,4 +1,9 @@
 import admin from 'firebase-admin';
+import { readFile } from "fs/promises";
+
+const serviceAccount = JSON.parse(
+    await readFile(new URL("../environment/survey-system-bcs-firebase-adminsdk-fbsvc-80f4e52191.json", import.meta.url))
+);
 
 export class GlobalDatabase {
     static db = null;
@@ -35,7 +40,7 @@ export class GlobalDatabase {
     static initializeDatabase() {
         if (!admin.apps.length) {
             admin.initializeApp({
-                credential: admin.credential.cert(process.env.FIREBASE_CREDENTIALS_PATH)
+                credential: admin.credential.cert(serviceAccount),
             });
         }
         this.db = admin.firestore();

@@ -1,6 +1,6 @@
 import express from 'express';
 import { MessageHandler } from './messageHandler.js';
-import { GlobalDatabase } from './GlobalDatabase.js';
+import { GlobalDatabase } from './database/globalDatabase.js';
 
 // Initialize Firebase Database
 GlobalDatabase.initializeDatabase();
