@@ -1,5 +1,6 @@
 import admin from 'firebase-admin';
 import { readFile } from "fs/promises";
+import { bcrypt } from 'bcrypt';
 
 const serviceAccount = JSON.parse(
     await readFile(new URL("../environment/survey-system-bcs-firebase-adminsdk-fbsvc-80f4e52191.json", import.meta.url))
@@ -9,9 +10,9 @@ export class GlobalDatabase {
     static db = null;
 
     static async createUser(username, password) {
-        const userRef = this.db.collection('users').doc();
-        await userRef.set({ username, password });
-        return userRef.id;
+        let hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = { username: username, password: hashedPassword };
+        await this.db.collection('users').add(newUser);
     }
 
     static async createSurvey(ownerId, questions, requiresLogin) {
