@@ -1,3 +1,12 @@
+/**
+* @fileoverview Utility for maintaining message object queue.
+* 
+* @description This class provides functions for adding and retrieving message objects to/from queue.
+* 
+* @author Sithumya Jayawardhana
+* @version 1.0.0
+* @date 2025-02-04
+*/
 
 export class MessageQueueUtil {
     static queue = [];

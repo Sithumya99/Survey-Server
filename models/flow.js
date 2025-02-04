@@ -1,3 +1,12 @@
+/**
+* @fileoverview Model for survey flows.
+* 
+* @description This class contains the flow details and methods related to processing flows.
+* 
+* @author Sithumya Jayawardhana
+* @version 1.0.0
+* @date 2025-02-04
+*/
 
 export class Flow {
     sectionId;
@@ -12,5 +21,15 @@ export class Flow {
         this.flowId = flowId;
         this.conditions = conditions;
         this.sectionFlow = sectionFlow;
+    }
+
+    toJson() {
+        return {
+            sectionId: this.sectionId,
+            surveyId: this.surveyId,
+            flowId: this.flowId,
+            conditions: this.conditions,
+            sectionFlow: this.sectionFlow
+        };
     }
 }

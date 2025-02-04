@@ -1,3 +1,13 @@
+/**
+* @fileoverview Authentication utilities for handling JWT tokens.
+* 
+* @description This module provides functions for generating and verifying JWT tokens.
+* 
+* @author Sithumya Jayawardhana
+* @version 1.0.0
+* @date 2025-02-04
+*/
+
 import { jwt } from 'jsonwebtoken';
 import { dotenv } from 'dotenv';
 
@@ -15,7 +25,7 @@ export class AuthenticatorUtil {
             return jwt.verify(token, this.secret_key);
         } catch (error) {
             console.error("invalid or expired token", error.message);
-            return null;
+            throw error;
         }
     }
 }

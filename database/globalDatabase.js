@@ -1,3 +1,12 @@
+/**
+* @fileoverview Global database interactions management.
+* 
+* @description This class contains the database and methods for interacting with the database.
+* 
+* @author Sithumya Jayawardhana
+* @version 1.0.0
+* @date 2025-02-04
+*/
 import admin from 'firebase-admin';
 import { readFile } from "fs/promises";
 import { bcrypt } from 'bcrypt';
@@ -9,22 +18,23 @@ const serviceAccount = JSON.parse(
 export class GlobalDatabase {
     static db = null;
 
-    static async createUser(username, password) {
-        let hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = { username: username, password: hashedPassword };
+    static async createUser(user) {
+        let hashedPassword = await bcrypt.hash(user.password, 10);
+        const newUser = { username: user.username, password: hashedPassword };
         await this.db.collection('users').add(newUser);
     }
 
-    static async createSurvey(ownerId, questions, requiresLogin) {
-        const surveyRef = this.db.collection('surveys').doc();
-        await surveyRef.set({
-            owner: ownerId,
-            questions,
-            responses: [],
-            requiresLogin
-        });
+    static async getUserByUsername(username) {
+        return await this.db.collection('users').where('username', '==', username).get();
+    }
 
-        return surveyRef.id;
+    static async createSurvey(survey) {
+        const newSurvey = survey.toJson();
+        await this.db.collection('surveys').add(newSurvey);
+    }
+
+    static async getSurveyById(surveyId) {
+        return await this.db.collection('surveys').where('surveyId', '==', surveyId).get();
     }
 
     static async createResponse(surveyId, answers) {
