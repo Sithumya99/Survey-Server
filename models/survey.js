@@ -7,6 +7,9 @@
 * @version 1.0.0
 * @date 2025-02-04
 */
+import { Section } from "./section.js";
+import { Response } from "./response.js";
+import { Flow } from "./flow.js";
 
 export class Survey {
     surveyId;
@@ -31,6 +34,28 @@ export class Survey {
         this.responses = [];
         this.flows = flows;
         this.requiresLogin = requiresLogin;
+    }
+
+    constructor(json, surveyId) {
+        this.surveyId = surveyId;
+        this.surveyTitle = json.surveyTitle;
+        this.surveyDescription = json.surveyDescription;
+        this.owner = json.owner;
+        this.noOfSections = json.noOfSections;
+        this.noOfResponses = json.noOfResponses;
+        this.requiresLogin = json.requiresLogin;
+
+        let sectionArray = json.sections;
+        for (let i = 0; i < sectionArray.legth; i++) {
+            this.sections.push(new Section(sectionArray[i], surveyId));
+        }
+
+        this.responses = json.responses;
+
+        let flowArray = json.flows;
+        for (let i = 0; i < flowArray.legth; i++) {
+            this.flows.push(new Flow(flowArray[i], surveyId));
+        }
     }
 
     toJson() {

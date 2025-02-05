@@ -21,7 +21,7 @@ app.use(express.json());
 app.all('/:action', async (req, res) => {
     try {
         const { action } = req.params;
-        if (action !== "login" && action !== "register") {
+        if (action !== "login" && action !== "register" && action !== "getsurveydetails") {
             const authHeader = req.headers["authorization"];
             if (!authHeader || !authHeader.startsWith("Bearer ")) {
                 throw new Error("No Authentication Token: Access denied");

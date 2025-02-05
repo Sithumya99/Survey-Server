@@ -8,13 +8,14 @@
 * @date 2025-02-04
 */
 import { parentPort, workerData } from "worker_threads";
-import { LoginUserUtil } from "./utility/loginUserUtil.js";
-import { RegisterUserUtil } from "./utility/registerUserUtil.js";
-import { CreateSurveyUtil } from "./utility/createSurveyUtil.js";
-import { GetClarificationUtil } from "./utility/getClarificationUtil.js";
-import { GetResponseEvaluationUtil } from "./utility/getResponseEvaluationUtil.js";
-import { GetSurveyUtil } from "./utility/getSurveyUtil.js";
-import { SubmitResponseUtil } from "./utility/submitResponseUtil.js";
+import { LoginUserUtil } from "../utility/loginUserUtil.js";
+import { RegisterUserUtil } from "../utility/registerUserUtil.js";
+import { CreateSurveyUtil } from "../utility/createSurveyUtil.js";
+import { GetClarificationUtil } from "../utility/getClarificationUtil.js";
+import { GetResponseEvaluationUtil } from "../utility/getResponseEvaluationUtil.js";
+import { GetSurveyUtil } from "../utility/getSurveyUtil.js";
+import { SubmitResponseUtil } from "../utility/submitResponseUtil.js";
+import { GetSurveyDetailsUtil } from "../utility/getSurveyDetailsUtil.js";
 
 async function processCommand(message) {
     try {
@@ -40,6 +41,9 @@ async function processCommand(message) {
             case "submitresponse":
                 let submitResponseUtil = new SubmitResponseUtil(message);
                 return await submitResponseUtil.execute();
+            case "getsurveydetails":
+                let getSurveyDetailsUtil = new GetSurveyDetailsUtil(message);
+                return await getSurveyDetailsUtil.execute();
         }
         throw new Error("Invalid command");
     } catch(error) {

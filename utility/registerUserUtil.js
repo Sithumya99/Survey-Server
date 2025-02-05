@@ -22,7 +22,6 @@ export class RegisterUserUtil {
             try {
                 let newUser = new UserProfile(this.message.data);
                 await GlobalDatabase.createUser(newUser);
-                //add sending list of survey ids filtered by user
                 resolve({ success: true, username: newUser.username });
             } catch(error) {
                 reject(error);

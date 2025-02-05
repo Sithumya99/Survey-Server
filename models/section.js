@@ -24,7 +24,22 @@ export class Section {
         this.sectionDescription = sectionDescription;
         this.noOfQuestions = noOfQuestions;
         this.questions = questions;
+        //connectedFlows: { flowId: number, condition: string}
         this.connectedFlows = connectedFlows;
+    }
+
+    constructor(json, surveyId) {
+        this.surveyId = surveyId;
+        this.sectionId = json.sectionId;
+        this.sectionTitle = json.sectionTitle;
+        this.sectionDescription = json.sectionDescription;
+        this.noOfQuestions = json.noOfQuestions;
+        this.connectedFlows = json.connectedFlows;
+
+        let questionArray = json.questions;
+        for (let i = 0; i < questionArray.length; i++) {
+            this.questions.push(questionArray[i], surveyId, this.sectionId);
+        }
     }
 
     toJson() {

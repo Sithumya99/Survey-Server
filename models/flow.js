@@ -23,6 +23,14 @@ export class Flow {
         this.sectionFlow = sectionFlow;
     }
 
+    constructor(json, surveyId) {
+        this.surveyId = surveyId;
+        this.sectionId = json.surveyId;
+        this.flowId = json.flowId;
+        this.conditions = json.conditions;
+        this.sectionFlow = json.sectionFlow;
+    }
+
     toJson() {
         return {
             sectionId: this.sectionId,

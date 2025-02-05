@@ -37,8 +37,20 @@ export class LoginUserUtil {
                 if (!isPasswordCorrect) {
                     throw new Error("Incorrect password");
                 }
-                //add sending list of survey ids filtered by user
-                resolve({success: true, username: userDoc.username});
+                
+                let ownerSurveys = [];
+                let surveySnapshot = await GlobalDatabase.getSurveysByOwner(userDoc.id);
+                if (!surveySnapshot.empty) {
+                    surveySnapshot.docs.forEach(doc => {
+                        ownerSurveys.push({
+                            id: doc.id,
+                            surveyId: doc.surveyId,
+                            surveyTitle: doc.surveyTitle
+                        });
+                    });
+                }
+
+                resolve({success: true, username: userDoc.username, surveys: ownerSurveys});
 
             } catch(error) {
                 reject(error);

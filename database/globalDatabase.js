@@ -28,6 +28,10 @@ export class GlobalDatabase {
         return await this.db.collection('users').where('username', '==', username).get();
     }
 
+    static async getSurveysByOwner(owner) {
+        return await this.db.collection('surveys').where('owner', '==', owner).get();
+    }
+
     static async createSurvey(survey) {
         const newSurvey = survey.toJson();
         await this.db.collection('surveys').add(newSurvey);
@@ -37,15 +41,8 @@ export class GlobalDatabase {
         return await this.db.collection('surveys').where('surveyId', '==', surveyId).get();
     }
 
-    static async createResponse(surveyId, answers) {
-        const responseRef = this.db.collection('responses').doc();
-        await responseRef.set({ surveyId, answers });
-
-        await this.db.collection('surveys').doc(surveyId).update({
-            response: admin.firestore.FieldValue.arrayUnion(responseRef.id)
-        });
-
-        return responseRef.id;
+    static async createResponse(response) {
+        return await this.db.collection('responses').add(response).id;
     }
 
     static initializeDatabase() {
