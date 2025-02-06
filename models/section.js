@@ -7,6 +7,7 @@
 * @version 1.0.0
 * @date 2025-02-04
 */
+import { Question } from "./question.js";
 
 export class Section {
     surveyId;
@@ -38,7 +39,7 @@ export class Section {
 
         let questionArray = json.questions;
         for (let i = 0; i < questionArray.length; i++) {
-            this.questions.push(questionArray[i], surveyId, this.sectionId);
+            this.questions.push(new Question(questionArray[i], surveyId, this.sectionId));
         }
     }
 
