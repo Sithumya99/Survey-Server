@@ -29,11 +29,13 @@ app.all('/:action', async (req, res) => {
             AuthenticatorUtil.verifyToken(authHeader.split(" ")[1]);
         }
         const result = await MessageHandler.handleRequest(action, req.body);
+        console.log("final result: ", result);
         const token = AuthenticatorUtil.generateToken(req.body.username);
 
         res.setHeader("Authorization", `Bearer ${token}`);
         res.status(200).header().json(result);
     } catch (error) {
+        console.log("error: ", error)
         res.status(500).json({ error: error.message });
     }
 });

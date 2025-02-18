@@ -1,4 +1,4 @@
-import { GlobalDatabase } from "../database/globalDatabase";
+import { GlobalDatabase } from "../database/globalDatabase.js";
 
 export class GetSurveyDetailsUtil {
     message;

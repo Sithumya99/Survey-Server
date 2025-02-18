@@ -7,8 +7,8 @@
 * @version 1.0.0
 * @date 2025-02-04
 */
-import { axios } from 'axios';
-import { dotenv } from 'dotenv';
+import axios from 'axios';
+import dotenv from 'dotenv';
 
 dotenv.config();
 

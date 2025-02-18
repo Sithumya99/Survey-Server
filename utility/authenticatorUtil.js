@@ -8,16 +8,18 @@
 * @date 2025-02-04
 */
 
-import { jwt } from 'jsonwebtoken';
-import { dotenv } from 'dotenv';
+import jwt from 'jsonwebtoken';
+// const jwt = require('jsonwebtoken');
+import dotenv from 'dotenv';
+// const dotenv = require('dotenv');
 
 dotenv.config();
 
 export class AuthenticatorUtil {
-    static secret_key = process.env.JWT_SECRET;
+    static secret_key = "Osmanthus_wine_is_the_same_as_I_remember_but_where_are_those_who_share_the_memories";
 
-    static generateToken(payload, expiresIn = "1h") {
-        return jwt.sign(payload, this.secret_key, { expiresIn });
+    static generateToken(payload) {
+        return jwt.sign(payload, this.secret_key, {});
     }
 
     static verifyToken(token) {

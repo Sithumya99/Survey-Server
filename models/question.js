@@ -18,18 +18,6 @@ export class Question {
     isRequired;
     noOfResponses;
 
-    constructor(sectionId, surveyId, questionId, questionString, questionType, isRequired, noOfResponses, options = []) {
-        this.sectionId = sectionId;
-        this.surveyId = surveyId;
-        this.questionId = questionId;
-        this.questionString = questionString;
-        this.questionType = questionType;
-        //options: { option: string, percentage: number } []
-        this.options = options;
-        this.isRequired = isRequired;
-        this.noOfResponses = noOfResponses;
-    }
-
     constructor(json, surveyId, sectionId) {
         this.surveyId = surveyId;
         this.sectionId = sectionId;

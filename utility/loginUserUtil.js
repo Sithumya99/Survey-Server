@@ -8,9 +8,10 @@
 * @date 2025-02-04
 */
 
-import { GlobalDatabase } from "../database/globalDatabase";
-import { UserProfile } from "../models/userProfile";
-import { bcrypt } from "bcrypt";
+import { GlobalDatabase } from "../database/globalDatabase.js";
+import { UserProfile } from "../models/userProfile.js";
+import pkg from 'bcrypt';
+const { bcrypt } = pkg;
 
 export class LoginUserUtil {
     message;

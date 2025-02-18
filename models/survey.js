@@ -23,19 +23,6 @@ export class Survey {
     flows;
     requiresLogin;
 
-    constructor(surveyId, surveyTitle, surveyDescription, noOfSections, flows, owner, sections, requiresLogin) {
-        this.surveyId = surveyId;
-        this.surveyTitle = surveyTitle;
-        this.surveyDescription = surveyDescription;
-        this.owner = owner;
-        this.noOfSections = noOfSections;
-        this.noOfResponses = 0;
-        this.sections = sections;
-        this.responses = [];
-        this.flows = flows;
-        this.requiresLogin = requiresLogin;
-    }
-
     constructor(json, surveyId) {
         this.surveyId = surveyId;
         this.surveyTitle = json.surveyTitle;

@@ -23,9 +23,9 @@ export class CreateSurveyUtil {
             try {
                 let newSurvey = new Survey(this.message.data);
 
-                await GlobalDatabase.createSurvey(newSurvey);
+                let surveyId = await GlobalDatabase.createSurvey(newSurvey);
 
-                resolve({ success: true });
+                resolve({ success: true, surveyId: surveyId });
             } catch(error) {
                 reject(error);
             }

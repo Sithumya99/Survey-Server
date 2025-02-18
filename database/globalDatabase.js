@@ -9,7 +9,7 @@
 */
 import admin from 'firebase-admin';
 import { readFile } from "fs/promises";
-import { bcrypt } from 'bcrypt';
+import bcrypt from 'bcrypt';
 
 const serviceAccount = JSON.parse(
     await readFile(new URL("../environment/survey-system-bcs-firebase-adminsdk-fbsvc-80f4e52191.json", import.meta.url))
@@ -19,7 +19,9 @@ export class GlobalDatabase {
     static db = null;
 
     static async createUser(user) {
+        console.log("new User: ", user);
         let hashedPassword = await bcrypt.hash(user.password, 10);
+        console.log("hashed pass: ", hashedPassword);
         const newUser = { username: user.username, password: hashedPassword };
         await this.db.collection('users').add(newUser);
     }
@@ -34,11 +36,11 @@ export class GlobalDatabase {
 
     static async createSurvey(survey) {
         const newSurvey = survey.toJson();
-        await this.db.collection('surveys').add(newSurvey);
+        return await this.db.collection('surveys').add(newSurvey).id;
     }
 
     static async getSurveyById(surveyId) {
-        return await this.db.collection('surveys').where('surveyId', '==', surveyId).get();
+        return await this.db.collection('surveys').where('id', '==', surveyId).get();
     }
 
     static async createResponse(response) {

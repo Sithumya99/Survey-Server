@@ -9,23 +9,14 @@
 */
 
 export class Flow {
-    sectionId;
     surveyId;
     flowId;
     conditions;
     sectionFlow;
-
-    constructor(sectionId, surveyId, flowId, conditions, sectionFlow) {
-        this.sectionId = sectionId;
-        this.surveyId = surveyId;
-        this.flowId = flowId;
-        this.conditions = conditions;
-        this.sectionFlow = sectionFlow;
-    }
-
+    
     constructor(json, surveyId) {
         this.surveyId = surveyId;
-        this.sectionId = json.surveyId;
+        this.sectionId = json.sectionId;
         this.flowId = json.flowId;
         this.conditions = json.conditions;
         this.sectionFlow = json.sectionFlow;

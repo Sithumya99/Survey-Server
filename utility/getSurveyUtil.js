@@ -7,7 +7,7 @@
 * @version 1.0.0
 * @date 2025-02-04
 */
-import { GlobalDatabase } from "../database/globalDatabase";
+import { GlobalDatabase } from "../database/globalDatabase.js";
 
 export class GetSurveyUtil {
     message;
