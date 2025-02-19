@@ -10,8 +10,7 @@
 
 import { GlobalDatabase } from "../database/globalDatabase.js";
 import { UserProfile } from "../models/userProfile.js";
-import pkg from 'bcrypt';
-const { bcrypt } = pkg;
+import bcrypt from 'bcrypt';
 
 export class LoginUserUtil {
     message;
@@ -29,10 +28,11 @@ export class LoginUserUtil {
                 let userSnapshot = await GlobalDatabase.getUserByUsername(user.username);
 
                 if (userSnapshot.empty) {
-                    throw new Error("Incorrect username");
+                    throw new Error("Invalid username");
                 }
 
-                let userDoc = userSnapshot.docs[0];
+                let userDoc = userSnapshot.docs[0].data();
+                console.log("user password: ", user.password, " | dbPass: ", userDoc.password);
                 let isPasswordCorrect = await bcrypt.compare(user.password, userDoc.password);
 
                 if (!isPasswordCorrect) {
@@ -40,18 +40,19 @@ export class LoginUserUtil {
                 }
                 
                 let ownerSurveys = [];
-                let surveySnapshot = await GlobalDatabase.getSurveysByOwner(userDoc.id);
+                let surveySnapshot = await GlobalDatabase.getSurveysByOwner(userSnapshot.docs[0].id);
                 if (!surveySnapshot.empty) {
                     surveySnapshot.docs.forEach(doc => {
+                        let data = doc.data();
                         ownerSurveys.push({
-                            id: doc.id,
-                            surveyId: doc.surveyId,
-                            surveyTitle: doc.surveyTitle
+                            id: data.id,
+                            surveyId: data.surveyId,
+                            surveyTitle: data.surveyTitle
                         });
                     });
                 }
 
-                resolve({success: true, username: userDoc.username, surveys: ownerSurveys});
+                resolve({success: true, username: userDoc.username, surveys: ownerSurveys, id: userSnapshot.docs[0].id});
 
             } catch(error) {
                 reject(error);

@@ -23,7 +23,7 @@ export class GlobalDatabase {
         let hashedPassword = await bcrypt.hash(user.password, 10);
         console.log("hashed pass: ", hashedPassword);
         const newUser = { username: user.username, password: hashedPassword };
-        await this.db.collection('users').add(newUser);
+        return await this.db.collection('users').add(newUser).id;
     }
 
     static async getUserByUsername(username) {

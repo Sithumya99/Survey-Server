@@ -8,6 +8,7 @@
 * @date 2025-02-04
 */
 import express from 'express';
+import cors from 'cors';
 import { MessageHandler } from './messageHandler.js';
 import { GlobalDatabase } from './database/globalDatabase.js';
 import { AuthenticatorUtil } from "./utility/authenticatorUtil.js";
@@ -16,9 +17,11 @@ import { AuthenticatorUtil } from "./utility/authenticatorUtil.js";
 GlobalDatabase.initializeDatabase();
 
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.all('/:action', async (req, res) => {
+app.use(cors("*"))
+app.post('/:action', async (req, res) => {
     try {
         const { action } = req.params;
         if (action !== "login" && action !== "register" && action !== "getsurveydetails") {
@@ -31,9 +34,10 @@ app.all('/:action', async (req, res) => {
         const result = await MessageHandler.handleRequest(action, req.body);
         console.log("final result: ", result);
         const token = AuthenticatorUtil.generateToken(req.body.username);
+        console.log("token: ", token);
 
-        res.setHeader("Authorization", `Bearer ${token}`);
-        res.status(200).header().json(result);
+        result.token = token;
+        res.status(200).json(result);
     } catch (error) {
         console.log("error: ", error)
         res.status(500).json({ error: error.message });

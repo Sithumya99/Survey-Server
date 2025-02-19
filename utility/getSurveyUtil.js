@@ -24,7 +24,7 @@ export class GetSurveyUtil {
                     throw new Error("Survey not found");
                 }
 
-                let surveyDoc = surveySnapshot.docs[0];
+                let surveyDoc = surveySnapshot.docs[0].data();
                 resolve(surveyDoc);
             } catch(error) {
                 reject(error);

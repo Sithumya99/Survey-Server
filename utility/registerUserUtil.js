@@ -20,12 +20,15 @@ export class RegisterUserUtil {
     async execute() {
         return new Promise(async (resolve, reject) => {
             try {
-                console.log("start register: ");
-                //check if username exists
+                console.log("start register: ", this.message);
+                let existinguser = await GlobalDatabase.getUserByUsername(this.message.data.username);
+                if (!existinguser.empty) {
+                    throw new Error("Username already exists");
+                }
                 let newUser = new UserProfile(this.message.data);
-                await GlobalDatabase.createUser(newUser);
+                let userId = await GlobalDatabase.createUser(newUser);
                 console.log("end register: ");
-                resolve({ success: true, username: newUser.username });
+                resolve({ success: true, username: newUser.username, id: userId });
             } catch(error) {
                 reject(error);
             }

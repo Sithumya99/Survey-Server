@@ -23,8 +23,8 @@ export class Survey {
     flows;
     requiresLogin;
 
-    constructor(json, surveyId) {
-        this.surveyId = surveyId;
+    constructor(json) {
+        this.surveyId = json.surveyId;
         this.surveyTitle = json.surveyTitle;
         this.surveyDescription = json.surveyDescription;
         this.owner = json.owner;
@@ -32,6 +32,7 @@ export class Survey {
         this.noOfResponses = json.noOfResponses;
         this.requiresLogin = json.requiresLogin;
 
+        this.sections = [];
         let sectionArray = json.sections;
         for (let i = 0; i < sectionArray.legth; i++) {
             this.sections.push(new Section(sectionArray[i], surveyId));
@@ -39,10 +40,12 @@ export class Survey {
 
         this.responses = json.responses;
 
+        this.flows = [];
         let flowArray = json.flows;
         for (let i = 0; i < flowArray.legth; i++) {
             this.flows.push(new Flow(flowArray[i], surveyId));
         }
+        console.log("survey: ", this);
     }
 
     toJson() {
@@ -62,7 +65,7 @@ export class Survey {
 
     getSectionsJson() {
         let sectionsArray = [];
-        for (let i = 0; i < this.sections.legth; i++) {
+        for (let i = 0; i < this.sections.length; i++) {
             sectionsArray.push(this.sections[i].toJson());
         }
         return sectionsArray;
