@@ -16,7 +16,6 @@ export class Flow {
     
     constructor(json, surveyId) {
         this.surveyId = surveyId;
-        this.sectionId = json.sectionId;
         this.flowId = json.flowId;
         this.conditions = json.conditions;
         this.sectionFlow = json.sectionFlow;
@@ -24,7 +23,6 @@ export class Flow {
 
     toJson() {
         return {
-            sectionId: this.sectionId,
             surveyId: this.surveyId,
             flowId: this.flowId,
             conditions: this.conditions,

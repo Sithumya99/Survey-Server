@@ -15,7 +15,6 @@ export class Question {
     questionString;
     questionType;
     options;
-    isRequired;
     noOfResponses;
 
     constructor(json, surveyId, sectionId) {
@@ -25,7 +24,6 @@ export class Question {
         this.questionString = json.questionString;
         this.questionType = json.questionType;
         this.options = json.options;
-        this.isRequired = json.isRequired;
         this.noOfResponses = json.noOfResponses;
     }
 
@@ -36,7 +34,8 @@ export class Question {
             questionId: this.questionId,
             questionString: this.questionString,
             questionType: this.questionType,
-            options: this.options
+            options: this.options,
+            noOfResponses: this.noOfResponses
         };
     }
 }

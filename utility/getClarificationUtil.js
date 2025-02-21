@@ -30,7 +30,7 @@ export class GetClarificationUtil {
                     throw new Error("Service unavailable, please try again later.");
                 }
 
-                resolve(result);
+                resolve({answer: result.answer});
             } catch(error) {
                 reject(error);
             }

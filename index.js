@@ -24,19 +24,24 @@ app.use(cors("*"))
 app.post('/:action', async (req, res) => {
     try {
         const { action } = req.params;
-        if (action !== "login" && action !== "register" && action !== "getsurveydetails") {
+        if (action == "createsurvey" || action == "getsurveydetail") {
             const authHeader = req.headers["authorization"];
             if (!authHeader || !authHeader.startsWith("Bearer ")) {
                 throw new Error("No Authentication Token: Access denied");
             }
+            console.log("Auth header: ", authHeader.split(" "));
             AuthenticatorUtil.verifyToken(authHeader.split(" ")[1]);
         }
         const result = await MessageHandler.handleRequest(action, req.body);
         console.log("final result: ", result);
-        const token = AuthenticatorUtil.generateToken(req.body.username);
-        console.log("token: ", token);
+        
+        if (req.body.username) {
+            const token = AuthenticatorUtil.generateToken(req.body.username);
+            console.log("token: ", token);
 
-        result.token = token;
+            result.token = token;
+        }
+
         res.status(200).json(result);
     } catch (error) {
         console.log("error: ", error)

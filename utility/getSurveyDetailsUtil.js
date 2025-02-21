@@ -11,13 +11,13 @@ export class GetSurveyDetailsUtil {
         return new Promise(async (resolve, reject) => {
             try {
                 let surveySnapshot = await GlobalDatabase.getSurveyById(this.message.data.surveyId);
-                if (surveySnapshot.empty){
+                if (surveySnapshot.exists){
                     throw new Error("Survey not found");
                 }
 
-                let surveyDoc = surveySnapshot.docs[0].data();
+                let surveyDoc = surveySnapshot.data();
 
-                resolve({ success: true, surveyId: surveyDoc.surveyId, surveyTitle: surveyDoc.surveyTitle, surveyDescription: surveyDoc.surveyDescription, isLoginRequired: surveyDoc.isLoginRequired });
+                resolve({ success: true, survey: surveyDoc });
             } catch(error) {
                 reject(error);
             }

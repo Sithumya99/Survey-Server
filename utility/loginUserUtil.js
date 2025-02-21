@@ -45,7 +45,7 @@ export class LoginUserUtil {
                     surveySnapshot.docs.forEach(doc => {
                         let data = doc.data();
                         ownerSurveys.push({
-                            id: data.id,
+                            id: doc.id,
                             surveyId: data.surveyId,
                             surveyTitle: data.surveyTitle
                         });

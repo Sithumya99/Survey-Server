@@ -30,7 +30,7 @@ export class GetResponseEvaluationUtil {
                     throw new Error("Service unavailable, please try again later.");
                 }
 
-                resolve(result);
+                resolve({flag: result.flag});
             } catch(error) {
                 reject(error);
             }

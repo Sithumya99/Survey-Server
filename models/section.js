@@ -16,7 +16,6 @@ export class Section {
     sectionDescription;
     noOfQuestions;
     questions;
-    connectedFlows;
 
     constructor(json, surveyId) {
         this.surveyId = surveyId;
@@ -24,8 +23,8 @@ export class Section {
         this.sectionTitle = json.sectionTitle;
         this.sectionDescription = json.sectionDescription;
         this.noOfQuestions = json.noOfQuestions;
-        this.connectedFlows = json.connectedFlows;
 
+        this.questions = [];
         let questionArray = json.questions;
         for (let i = 0; i < questionArray.length; i++) {
             this.questions.push(new Question(questionArray[i], surveyId, this.sectionId));
@@ -39,8 +38,7 @@ export class Section {
             sectionTitle: this.sectionTitle,
             sectionDescription: this.sectionDescription,
             noOfQuestions: this.noOfQuestions,
-            questions: this.getQuestionsJson(),
-            connectedFlows: this.connectedFlows
+            questions: this.getQuestionsJson()
         };
     }
 

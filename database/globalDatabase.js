@@ -36,15 +36,21 @@ export class GlobalDatabase {
 
     static async createSurvey(survey) {
         const newSurvey = survey.toJson();
-        return await this.db.collection('surveys').add(newSurvey).id;
+        let newSurveyDoc = await this.db.collection('surveys').add(newSurvey);
+        return newSurveyDoc.id;
     }
 
-    static async getSurveyById(surveyId) {
-        return await this.db.collection('surveys').where('id', '==', surveyId).get();
+    static async getSurveyById(id) {
+        return await this.db.collection('surveys').doc(id).get();
+    }
+
+    static async getSurveyBySurveyId(surveyId) {
+        return await this.db.collection('surveys').where('surveyId', '==', surveyId).get();
     }
 
     static async createResponse(response) {
-        return await this.db.collection('responses').add(response).id;
+        let newResponseDoc = await this.db.collection('responses').add(response);
+        return newResponseDoc.id;
     }
 
     static initializeDatabase() {

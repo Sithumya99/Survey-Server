@@ -21,11 +21,12 @@ export class CreateSurveyUtil {
     async execute() {
         return new Promise(async (resolve, reject) => {
             try {
+                console.log("survey data: ", this.message.data)
                 let newSurvey = new Survey(this.message.data);
 
                 let surveyId = await GlobalDatabase.createSurvey(newSurvey);
 
-                resolve({ success: true, surveyId: surveyId });
+                resolve({ success: true, surveyId: surveyId, surveyTitle: newSurvey.surveyTitle });
             } catch(error) {
                 reject(error);
             }

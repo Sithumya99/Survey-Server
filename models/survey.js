@@ -16,34 +16,40 @@ export class Survey {
     surveyTitle;
     surveyDescription;
     owner;
-    noOfSections;
     noOfResponses;
     sections;
     responses;
     flows;
     requiresLogin;
+    startSection;
 
     constructor(json) {
         this.surveyId = json.surveyId;
         this.surveyTitle = json.surveyTitle;
         this.surveyDescription = json.surveyDescription;
         this.owner = json.owner;
-        this.noOfSections = json.noOfSections;
         this.noOfResponses = json.noOfResponses;
         this.requiresLogin = json.requiresLogin;
+        this.startSection = json.startSection;
 
         this.sections = [];
         let sectionArray = json.sections;
-        for (let i = 0; i < sectionArray.legth; i++) {
-            this.sections.push(new Section(sectionArray[i], surveyId));
+        for (let i = 0; i < sectionArray.length; i++) {
+            this.sections.push(new Section(sectionArray[i], this.surveyId));
         }
 
-        this.responses = json.responses;
+        this.responses = [];
+        let resArray = json.responses;
+        for (let i = 0; i < resArray.length; i++) {
+            this.responses.push(new Response(resArray.surveyId, resArray.answers));
+        }
 
         this.flows = [];
         let flowArray = json.flows;
-        for (let i = 0; i < flowArray.legth; i++) {
-            this.flows.push(new Flow(flowArray[i], surveyId));
+        console.log("survey flows: ", flowArray);
+        for (let i = 0; i < flowArray.length; i++) {
+            this.flows.push(new Flow(flowArray[i], this.surveyId));
+            console.log("flow ", i, ": ", this.flows)
         }
         console.log("survey: ", this);
     }
@@ -54,12 +60,12 @@ export class Survey {
             surveyTitle: this.surveyTitle,
             surveyDescription: this.surveyDescription,
             owner: this.owner,
-            noOfSections: this.noOfSections,
             noOfResponses: this.noOfResponses,
             sections: this.getSectionsJson(),
             responses: this.getResponsesJson(),
             flows: this.getFlowsJson(),
-            requiresLogin: this.requiresLogin
+            requiresLogin: this.requiresLogin,
+            startSection: this.startSection
         };
     }
 
@@ -81,7 +87,7 @@ export class Survey {
 
     getFlowsJson() {
         let flowsArray = [];
-        for(let i = 0; i < this.flows.legth; i++) {
+        for(let i = 0; i < this.flows.length; i++) {
             flowsArray.push(this.flows[i].toJson());
         }
         return flowsArray;
