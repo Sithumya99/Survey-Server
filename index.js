@@ -35,7 +35,7 @@ app.post('/:action', async (req, res) => {
         const result = await MessageHandler.handleRequest(action, req.body);
         console.log("final result: ", result);
         
-        if (req.body.username) {
+        if (req.body.username !== "") {
             const token = AuthenticatorUtil.generateToken(req.body.username);
             console.log("token: ", token);
 
@@ -48,6 +48,8 @@ app.post('/:action', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+export { app };
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -10,8 +10,8 @@ export class GetSurveyDetailsUtil {
     async execute() {
         return new Promise(async (resolve, reject) => {
             try {
-                let surveySnapshot = await GlobalDatabase.getSurveyById(this.message.data.surveyId);
-                if (surveySnapshot.exists){
+                let surveySnapshot = await GlobalDatabase.getSurveyById(this.message.data.surveyId.trim());
+                if (!surveySnapshot.exists){
                     throw new Error("Survey not found");
                 }
 

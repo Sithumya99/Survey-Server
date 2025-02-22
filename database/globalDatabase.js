@@ -49,7 +49,8 @@ export class GlobalDatabase {
     }
 
     static async createResponse(response) {
-        let newResponseDoc = await this.db.collection('responses').add(response);
+        let newResponse = response.toJson();
+        let newResponseDoc = await this.db.collection('responses').add(newResponse);
         return newResponseDoc.id;
     }
 

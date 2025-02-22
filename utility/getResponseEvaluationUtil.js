@@ -22,8 +22,12 @@ export class GetResponseEvaluationUtil {
     async execute() {
         return new Promise(async (resolve, reject) => {
             try{
-                let apiUrl = process.env.RESPONSE_RELEVANCE_AGENT_URL;
-                let requestData = {};
+                let apiUrl = "";
+                let requestData = {
+                    context: this.message.data.context,
+                    question: this.message.data.question,
+                    userResponse: this.message.data.userResponse
+                };
                 let result = await axios.post(apiUrl, requestData);
 
                 if(!result) {

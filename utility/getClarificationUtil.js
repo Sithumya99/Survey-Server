@@ -22,15 +22,20 @@ export class GetClarificationUtil {
     async execute() {
         return new Promise(async (resolve, reject) => {
             try{
-                let apiUrl = process.env.CLARIFICATION_AGENT_URL;
-                let requestData = {};
+                let apiUrl = "https://04b5-35-230-78-59.ngrok-free.app/generate";
+                console.log("clarify data: ", this.message.data);
+                let requestData = {
+                    systemQuestion: this.message.data.clarificationDetails.systemQuestion,
+                    userQuestion: this.message.data.clarificationDetails.userQuestion
+                };
                 let result = await axios.post(apiUrl, requestData);
+                console.log("clarification result: ", result.data);
 
                 if(!result) {
                     throw new Error("Service unavailable, please try again later.");
                 }
 
-                resolve({answer: result.answer});
+                resolve({answer: result.data.answer});
             } catch(error) {
                 reject(error);
             }

@@ -26,7 +26,6 @@ export class LoginUserUtil {
                 let user = new UserProfile(this.message.data);
                 //user details from database
                 let userSnapshot = await GlobalDatabase.getUserByUsername(user.username);
-
                 if (userSnapshot.empty) {
                     throw new Error("Invalid username");
                 }
