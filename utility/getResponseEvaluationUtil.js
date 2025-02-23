@@ -31,17 +31,18 @@ export class GetResponseEvaluationUtil {
                 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
                 let apiUrl = config.Relevance_API;
                 let requestData = {
-                    context: this.message.data.context,
-                    question: this.message.data.question,
-                    userResponse: this.message.data.userResponse
+                    context: this.message.data.questionDetails.context,
+                    question: this.message.data.questionDetails.question,
+                    userResponse: this.message.data.questionDetails.userResponse
                 };
+                console.log("data: ", requestData);
                 let result = await axios.post(apiUrl, requestData);
 
                 if(!result) {
                     throw new Error("Service unavailable, please try again later.");
                 }
 
-                resolve({flag: result.flag});
+                resolve({flag: result.data.flag});
             } catch(error) {
                 reject(error);
             }
