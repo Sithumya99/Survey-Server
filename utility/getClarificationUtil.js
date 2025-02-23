@@ -9,6 +9,7 @@
 */
 import axios from 'axios';
 import dotenv from 'dotenv';
+const path = require('path');
 
 dotenv.config();
 
@@ -22,7 +23,9 @@ export class GetClarificationUtil {
     async execute() {
         return new Promise(async (resolve, reject) => {
             try{
-                let apiUrl = "https://04b5-35-230-78-59.ngrok-free.app/generate";
+                const configPath = path.join(__dirname, 'config.json');
+                const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+                let apiUrl = config.Clarification_API;
                 console.log("clarify data: ", this.message.data);
                 let requestData = {
                     systemQuestion: this.message.data.clarificationDetails.systemQuestion,

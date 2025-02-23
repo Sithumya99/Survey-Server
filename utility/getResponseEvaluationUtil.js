@@ -9,6 +9,7 @@
 */
 import axios from 'axios';
 import dotenv from 'dotenv';
+const path = require('path');
 
 dotenv.config();
 
@@ -22,7 +23,9 @@ export class GetResponseEvaluationUtil {
     async execute() {
         return new Promise(async (resolve, reject) => {
             try{
-                let apiUrl = "";
+                const configPath = path.join(__dirname, 'config.json');
+                const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+                let apiUrl = config.Relevance_API;
                 let requestData = {
                     context: this.message.data.context,
                     question: this.message.data.question,
