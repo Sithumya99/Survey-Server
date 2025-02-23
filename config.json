@@ -1,4 +1,4 @@
 {
-    "Clarification_API": "endpoint-url/generate",
+    "Clarification_API": "https://f9b9-35-221-189-97.ngrok-free.app/generate",
     "Relevance_API": "endpoint-url"
 }

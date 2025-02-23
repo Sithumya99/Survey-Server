@@ -10,6 +10,8 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 import path from "path";
+import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 dotenv.config();
 
@@ -23,7 +25,9 @@ export class GetClarificationUtil {
     async execute() {
         return new Promise(async (resolve, reject) => {
             try{
-                const configPath = path.join(__dirname, 'config.json');
+                const __filename = fileURLToPath(import.meta.url);
+                const __dirname = path.dirname(__filename);
+                const configPath = path.join(__dirname, '..', 'config.json');
                 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
                 let apiUrl = config.Clarification_API;
                 console.log("clarify data: ", this.message.data);

@@ -9,7 +9,7 @@
 */
 import admin from 'firebase-admin';
 import { readFile } from "fs/promises";
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 const serviceAccount = JSON.parse(
     await readFile(new URL("../environment/survey-system-bcs-firebase-adminsdk-fbsvc-80f4e52191.json", import.meta.url))

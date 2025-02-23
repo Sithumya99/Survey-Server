@@ -10,7 +10,7 @@
 
 import { GlobalDatabase } from "../database/globalDatabase.js";
 import { UserProfile } from "../models/userProfile.js";
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export class LoginUserUtil {
     message;
